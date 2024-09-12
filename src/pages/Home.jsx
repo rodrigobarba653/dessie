@@ -47,7 +47,7 @@ const Home = ({ data }) => {
       {/* Hero Section */}
       <div className="w-full lg:px-0 px-8">
         <div className="container mx-auto md:flex">
-          <div className="md:w-1/2 xl:py-36 lg:py-24 py-16">
+          <div className="md:w-1/2 xl:py-40 lg:py-24 py-16">
             <h1 className="lg:text-7xl text-5xl">
               {homePage[0].data.heroTitle}
             </h1>
@@ -103,7 +103,7 @@ const Home = ({ data }) => {
       </div>
 
       {/* Staff Section */}
-      <div className="w-full lg:px-0 px-8 md:py-36 py-16 relative">
+      <div className="w-full lg:px-16 px-8 md:py-36 py-16 relative">
         <div className="blur-teal top-0 -right-48 w-72 h-72"></div>
         <div className="container mx-auto relative z-20">
           <h2 className="md:text-5xl text-4xl md:text-left text-center">
