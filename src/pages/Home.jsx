@@ -9,20 +9,6 @@ const Home = ({ data }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedStaff, setSelectedStaff] = useState(null);
 
-  const openModal = (staff) => {
-    const optimizedImageUrl = getConvertedWixImageUrl(staff.profilePic);
-    setSelectedStaff({
-      ...staff,
-      optimizedImageUrl, // Include the optimized image URL
-    });
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedStaff(null);
-  };
-
   const getConvertedWixImageUrl = (imageUrl) => {
     if (imageUrl.startsWith("wix:image://")) {
       const wixImageId = imageUrl.split("/v1/")[1].split("/")[0]; // Extract only the image ID part
@@ -36,6 +22,24 @@ const Home = ({ data }) => {
     return plainText.length > maxLength
       ? `${plainText.slice(0, maxLength)}...`
       : plainText;
+  };
+
+  const openModal = (staffMember) => {
+    const profilePic = staffMember.profilePic; // Access profilePic directly from staffMember
+    const optimizedImageUrl = profilePic
+      ? getConvertedWixImageUrl(profilePic)
+      : ""; // Convert image URL
+
+    setSelectedStaff({
+      ...staffMember, // Spread original staffMember
+      optimizedImageUrl, // Attach optimized image URL
+    });
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedStaff(null);
   };
 
   return (
