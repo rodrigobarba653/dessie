@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply overflow-x-hidden w-screen;
+  }
+}
+
+a {
+  @apply underline hover:text-gray-500;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-bold;
+}
+
+.blur-teal {
+  @apply bg-teal-500 bg-opacity-25 blur-3xl absolute z-0;
+}
+
+.masked-video {
+  mask: url(../public/img/pills.svg);
+  -webkit-mask: url(../public/img/pills.svg);
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+}
+
+.services-staff ul {
+  @apply list-disc;
+}
