@@ -116,10 +116,12 @@ const Home = ({ data }) => {
       <div id="staff" className="w-full lg:px-16 px-8 md:py-36 py-16 relative">
         <div className="blur-teal top-0 -right-48 w-72 h-72"></div>
         <div className="container mx-auto relative z-20">
-          <h2 className="md:text-5xl text-4xl md:text-left text-center">
+          <h2 className="md:text-5xl text-4xl text-center">
             {homePage[0].data.staffTitle}
           </h2>
-          <p className="mt-4 md:w-1/2">{homePage[0].data.staffText}</p>
+          <p className="mt-4 md:w-1/2 mx-auto text-center">
+            {homePage[0].data.staffText}
+          </p>
           <div className="mt-6 grid lg:grid-cols-2 grid-cols-1 md:gap-5">
             {staffMembers.map((staffMember) => {
               const optimizedImageUrl = getConvertedWixImageUrl(
