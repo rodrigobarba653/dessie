@@ -6,14 +6,28 @@ import classNames from "classnames";
 const Navbar = ({ homePageData }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    const offset = 120; // Adjust this value to control the offset
+    if (section) {
+      const sectionPosition =
+        section.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({
+        top: sectionPosition,
+        behavior: "smooth",
+      });
+      setIsOpen(!isOpen);
+    }
+  };
+
   return (
     <nav className="w-full z-50">
       <div className="mx-auto lg:px-16 px-8 flex justify-between">
-        <a href="#">
+        <button onClick={() => scrollToSection("home")}>
           <div className="w-40">
             <img className="w-full" src="/img/mainLogo.png" alt="Logo" />
           </div>
-        </a>
+        </button>
         <div
           className={classNames(
             "flex lg:flex-row flex-col lg:relative fixed lg:bg-transparent bg-gray-100 transition-all lg:right-0 ease-in-out duration-200 xl:w-8/12 lg:w-9/12 w-[100vw] top-0 lg:h-auto h-[100vh] items-center ms-0 xl:ms-2 justify-between px-4 z-50",
@@ -31,19 +45,39 @@ const Navbar = ({ homePageData }) => {
           ></Button>
 
           <div className="lg:flex lg:w-auto w-full lg:divide-none divide-y divide-gray-300">
-            <Button className="w-full rounded-none" variant="menu">
+            <Button
+              className="w-full rounded-none"
+              variant="menu"
+              onClick={() => scrollToSection("home")}
+            >
               Home
             </Button>
-            <Button className="w-full rounded-none" variant="menu">
+            <Button
+              className="w-full rounded-none"
+              variant="menu"
+              onClick={() => scrollToSection("mission")}
+            >
               Mission
             </Button>
-            <Button className="w-full rounded-none" variant="menu">
+            <Button
+              className="w-full rounded-none"
+              variant="menu"
+              onClick={() => scrollToSection("staff")}
+            >
               Our Staff
             </Button>
-            <Button className="w-full rounded-none" variant="menu">
+            <Button
+              className="w-full rounded-none"
+              variant="menu"
+              onClick={() => scrollToSection("services")}
+            >
               Services
             </Button>
-            <Button className="w-full rounded-none" variant="menu">
+            <Button
+              className="w-full rounded-none"
+              variant="menu"
+              onClick={() => scrollToSection("insurance")}
+            >
               Insurance
             </Button>
           </div>

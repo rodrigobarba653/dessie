@@ -3,7 +3,7 @@ import Icon from "../ui/Icon";
 import parse from "html-react-parser";
 import classNames from "classnames";
 
-const StaffModal = ({ staffMember, isOpen, onClose }) => {
+const EstimateModal = ({ title, text, isOpen, onClose }) => {
   const [animateContent, setAnimateContent] = useState(false);
 
   // Manage body scroll when modal is open
@@ -28,7 +28,7 @@ const StaffModal = ({ staffMember, isOpen, onClose }) => {
     };
   }, [isOpen]);
 
-  if (!staffMember) return null;
+  if (!text) return null;
 
   return (
     <div
@@ -53,28 +53,13 @@ const StaffModal = ({ staffMember, isOpen, onClose }) => {
             className="hover:text-gray-400 cursor-pointer flex items-center justify-center px-0 absolute rounded-full h-10 w-10 top-2 -left-5 bg-slate-200"
           />
         </button>
-        <div className="h-full px-6 pb-16 md:mt-0 mt-1 overflow-y-scroll">
-          {/* Staff Member Details */}
+        <div className="h-full px-6 md:mt-0 mt-1 overflow-y-scroll">
+          {/* Estimate Member Details */}
           <div className="mt-8">
-            <div className="md:flex gap-4 relative h-auto md:mb-4">
-              <div className="rounded-md w-48 h-64 overflow-hidden">
-                <img
-                  className="object-cover h-full"
-                  src={
-                    staffMember.optimizedImageUrl ||
-                    "/path/to/default-image.jpg"
-                  }
-                  alt={staffMember.staffName || "Staff Member"}
-                />
-              </div>
-              <div className="md:h-64 flex flex-col md:justify-end md:mb-0 mb-4">
-                <h3 className="md:text-5xl text-3xl font-bold mt-4">
-                  {staffMember.staffName}
-                </h3>
-                <p className="text-teal-500">{staffMember.credentials}</p>
-              </div>
-            </div>
-            {parse(staffMember.experience)}
+            <h3 className="md:text-5xl text-3xl font-bold mt-4 mb-8">
+              {parse(title)}
+            </h3>
+            {parse(text)}
           </div>
         </div>
       </div>
@@ -82,4 +67,4 @@ const StaffModal = ({ staffMember, isOpen, onClose }) => {
   );
 };
 
-export default StaffModal;
+export default EstimateModal;

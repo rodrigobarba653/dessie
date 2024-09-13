@@ -3,10 +3,12 @@ import Button from "../components/ui/Button";
 import Icon from "../components/ui/Icon";
 import parse from "html-react-parser";
 import StaffModal from "../components/layout/StaffModal";
+import EstimateModal from "../components/layout/EstimateModal";
 
 const Home = ({ data }) => {
   const { homePage, staffMembers, logos } = data; // Destructure data from props
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for Staff Modal
+  const [isEstimateModalOpen, setIsEstimateModalOpen] = useState(false); // State for Estimate Modal
   const [selectedStaff, setSelectedStaff] = useState(null);
 
   const getConvertedWixImageUrl = (imageUrl) => {
@@ -24,7 +26,7 @@ const Home = ({ data }) => {
       : plainText;
   };
 
-  const openModal = (staffMember) => {
+  const openStaffModal = (staffMember) => {
     const profilePic = staffMember.profilePic; // Access profilePic directly from staffMember
     const optimizedImageUrl = profilePic
       ? getConvertedWixImageUrl(profilePic)
@@ -34,18 +36,26 @@ const Home = ({ data }) => {
       ...staffMember, // Spread original staffMember
       optimizedImageUrl, // Attach optimized image URL
     });
-    setIsModalOpen(true);
+    setIsModalOpen(true); // Open staff modal
   };
 
-  const closeModal = () => {
+  const closeStaffModal = () => {
     setIsModalOpen(false);
     setSelectedStaff(null);
+  };
+
+  const openEstimateModal = () => {
+    setIsEstimateModalOpen(true); // Open estimate modal
+  };
+
+  const closeEstimateModal = () => {
+    setIsEstimateModalOpen(false); // Close estimate modal
   };
 
   return (
     <>
       {/* Hero Section */}
-      <div className="w-full lg:px-0 px-8">
+      <div id="hero" className="w-full lg:px-0 px-8">
         <div className="container mx-auto md:flex">
           <div className="md:w-1/2 xl:py-40 lg:py-24 py-16">
             <h1 className="lg:text-7xl text-5xl">
@@ -90,7 +100,7 @@ const Home = ({ data }) => {
       </div>
 
       {/* Mission Section */}
-      <div className="w-full lg:px-0 px-4 md:mt-0 mt-16 relative">
+      <div id="mission" className="w-full lg:px-0 px-4 md:mt-0 mt-16 relative">
         <div className="blur-teal md:-top-28 md:-left-40 md:w-72 md:h-72 -left-16 top-0 w-32 h-32"></div>
         <div className="container mx-auto text-center z-10 relative">
           <h2 className="md:text-5xl text-4xl">
@@ -103,7 +113,7 @@ const Home = ({ data }) => {
       </div>
 
       {/* Staff Section */}
-      <div className="w-full lg:px-16 px-8 md:py-36 py-16 relative">
+      <div id="staff" className="w-full lg:px-16 px-8 md:py-36 py-16 relative">
         <div className="blur-teal top-0 -right-48 w-72 h-72"></div>
         <div className="container mx-auto relative z-20">
           <h2 className="md:text-5xl text-4xl md:text-left text-center">
@@ -119,9 +129,9 @@ const Home = ({ data }) => {
               return (
                 <div
                   key={staffMember._id}
-                  className="flex gap-4 hover:shadow-lg hover:shadow-gray-300 rounded-md md:mb-0 mb-8 transition-all bg-teal-500 bg-opacity-5"
+                  className="flex gap-4 hover:shadow-lg hover:shadow-gray-300 rounded-md md:mb-0 mb-8 transition-all bg-teal-500 bg-opacity-5 md:max-h-none max-h-[174px]"
                 >
-                  <div className="md:w-3/12 w-56 overflow-hidden bg-gray-200 rounded-md">
+                  <div className="sm:w-3/12 w-48 overflow-hidden bg-gray-200 rounded-md">
                     <img
                       className="object-cover h-full"
                       src={optimizedImageUrl}
@@ -138,7 +148,7 @@ const Home = ({ data }) => {
                     </p>
                     <Button
                       variant="link"
-                      onClick={() => openModal(staffMember.data)}
+                      onClick={() => openStaffModal(staffMember.data)}
                       icon={<Icon name="arrowRight" size={16} />}
                       iconPosition="right"
                     >
@@ -167,7 +177,7 @@ const Home = ({ data }) => {
             </div>
           </div>
 
-          <div className="md:w-1/2 w-full lg:py-20">
+          <div id="services" className="md:w-1/2 w-full lg:py-20">
             <h2 className="md:text-5xl text-4xl">
               {homePage[0].data.servicesTitle}
             </h2>
@@ -180,7 +190,10 @@ const Home = ({ data }) => {
       </div>
 
       {/* Insurance Section */}
-      <div className="w-full lg:px-0 px-8 mt-24 py-16 bg-teal-500 bg-opacity-15">
+      <div
+        id="insurance"
+        className="w-full lg:px-0 px-8 mt-24 py-16 bg-teal-500 bg-opacity-15"
+      >
         <div className="container mx-auto text-center">
           <h2 className="md:text-5xl text-4xl mb-8">
             {homePage[0].data.insuranceTitle}
@@ -213,7 +226,7 @@ const Home = ({ data }) => {
       </div>
 
       {/* Footer */}
-      <div className="w-full lg:px-0 px-8 py-20">
+      <div id="footer" className="w-full lg:px-0 px-8 py-20">
         <div className="container mx-auto md:flex">
           <div className="md:w-1/2 mb-16">
             <h2 className="md:text-5xl text-4xl mb-6">
@@ -244,26 +257,36 @@ const Home = ({ data }) => {
               {homePage[0].data.goodFaithTitle}
             </h2>
             <p className="mb-6">{homePage[0].data.goodFaithText}</p>
-            <Button variant="primary">Get Estimate</Button>
+            <Button variant="primary" onClick={openEstimateModal}>
+              Get Estimate
+            </Button>
           </div>
         </div>
       </div>
 
       {/* Copyright */}
-      <div className="w-full lg:px-0 px-8 py-8 bg-zinc-900">
+      <div id="copyright" className="w-full lg:px-0 px-8 py-8 bg-zinc-900">
         <div className="container mx-auto md:flex text-white">
           Copyright Dessie Kammer © 2024
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Staff Modal */}
       {selectedStaff && (
         <StaffModal
           staffMember={selectedStaff}
           isOpen={isModalOpen}
-          onClose={closeModal}
+          onClose={closeStaffModal} // Correct close handler for Staff Modal
         />
       )}
+
+      {/* Estimate Modal */}
+      <EstimateModal
+        isOpen={isEstimateModalOpen}
+        text={homePage[0].data.goodFaithEstimateText}
+        title={homePage[0].data.goodFaithEstimateInnerTitle}
+        onClose={closeEstimateModal} // Correct close handler for Estimate Modal
+      />
     </>
   );
 };
